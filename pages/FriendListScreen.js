@@ -2,7 +2,6 @@ import React from 'react';
 import { FlatList, SafeAreaView, StatusBar, StyleSheet } from 'react-native';
 import { useSelector } from 'react-redux';
 import FriendCard from '../components/FriendCard';
-import LoginPage from './LoginPage';
 
 const PRE_DATA = [
   1, 3, 4, 5, 2, 4, 5, 5, 3, 5, 3, 5, 3, 5, 3, 5, 3, 5, 5, 5, 5, 5, 5, 5, 5, 5, 5, 5, 5,
@@ -16,7 +15,7 @@ const DATA = PRE_DATA.map((v, i) => {
   };
 });
 
-export default FriendListPage = () => {
+export default FriendListScreen = (props) => {
   const logged_in = useSelector((state) => {
     return state.login.logged_in;
   });
@@ -25,15 +24,9 @@ export default FriendListPage = () => {
   };
 
   return (
-    <>
-      {logged_in ? (
-        <SafeAreaView style={styles.container}>
-          <FlatList data={DATA} renderItem={renderItem} keyExtractor={(item) => item.id} />
-        </SafeAreaView>
-      ) : (
-        <LoginPage />
-      )}
-    </>
+    <SafeAreaView style={styles.container}>
+      <FlatList data={DATA} renderItem={renderItem} keyExtractor={(item) => item.id} />
+    </SafeAreaView>
   );
 };
 
