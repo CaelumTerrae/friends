@@ -6,7 +6,11 @@ import {
   StyleSheet,
   Text,
   TouchableOpacity,
+  Alert,
+  View,
 } from 'react-native';
+import FriendCard from './components/FriendCard';
+import { Avatar, Button, Card, Title, Paragraph } from 'react-native-paper';
 
 const PRE_DATA = [
   1, 3, 4, 5, 2, 4, 5, 5, 3, 5, 3, 5, 3, 5, 3, 5, 3, 5, 5, 5, 5, 5, 5, 5, 5, 5, 5, 5, 5,
@@ -14,7 +18,9 @@ const PRE_DATA = [
 const DATA = PRE_DATA.map((v, i) => {
   return {
     id: i,
-    title: `Item ${i}`,
+    title: `Friend ${i}`,
+    friend_status: i < 5 ? 'not_added' : i < 10 ? 'friends' : i < 15 ? 'add_back' : 'pending',
+    bio: "this is my bio please don't break the app",
   };
 });
 
@@ -30,15 +36,7 @@ const App = () => {
   const renderItem = ({ item }) => {
     const backgroundColor = item.id === selectedId ? '#6e3b6e' : '#f9c2ff';
     const color = item.id === selectedId ? 'white' : 'black';
-
-    return (
-      <Item
-        item={item}
-        onPress={() => setSelectedId(item.id)}
-        backgroundColor={{ backgroundColor }}
-        textColor={{ color }}
-      />
-    );
+    return <FriendCard name={item.title} friend_status={item.friend_status} bio={item.bio} />;
   };
 
   return (
@@ -48,6 +46,7 @@ const App = () => {
         renderItem={renderItem}
         keyExtractor={(item) => item.id}
         extraData={selectedId}
+        // ItemSeparatorComponent={() => <View style={{ height: 10 }} />}
       />
     </SafeAreaView>
   );
